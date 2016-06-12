@@ -1,0 +1,64 @@
+.catalog:
+  name: RabbitMQ Cluster
+  version: 3.6.2-rancher1
+  description: "A reliable, distributed messaging broker"
+  questions:
+    - variable: SLAVE_NODES
+      label: Number of Slave Nodes
+      description: |
+        Initial number of nodes to join the cluster.
+        Set to '0' to deploy a standalone RabbitMQ instance.
+      default: 2
+      min: 0
+      max: 10
+      required: true
+      type: int
+    - variable: AMQP_PORT
+      label: AMQP Port
+      description: Port on which nodes listen for AMQP requests
+      default: 5672
+      required: true
+      type: int
+    - variable: ERLANG_COOKIE
+      label: Erlang Cookie
+      description: |
+        The erlang cookie is used for authenticating nodes in the cluster.
+        Must be an alphanumeric string of any size.
+      type: string
+      default: MySecretString
+      required: true
+    - variable: USER_NAME
+      label: Default User Name
+      description: The name of the default user to create.
+      type: string
+      default: guest
+      required: true
+    - variable: USER_PASS
+      label: Default User Password
+      description: Password for the default user.
+      type: string
+      default: guest
+      required: true
+    - variable: ENABLE_MANAGEMENT
+      label: Enable Management Plugin
+      description: |
+        Exposes the management HTTP API on port 15672 of the rabbitmq-master.
+      required: true
+      type: enum
+      default: "false"
+      options:
+        - "true"
+        - "false"
+
+rabbitmq-master:
+  scale: 1
+  # health_check:
+  #     request_line: GET /health HTTP/1.0
+  #     port: 9631
+  #     interval: 30000
+  #     response_timeout: 10000
+  #     unhealthy_threshold: 2
+  #     healthy_threshold: 2
+
+rabbitmq-slave:
+  scale: ${SLAVE_NODES}

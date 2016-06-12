@@ -1,0 +1,5 @@
+name: RabbitMQ Cluster
+version: 3.6.2-rancher1
+maintainer: Jan Bruder <jan@rancher.com>
+category: Messaging
+description: "A reliable, distributed messaging broker"

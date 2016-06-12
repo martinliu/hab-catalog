@@ -1,0 +1,35 @@
+rabbitmq-master:
+  image: janeczku/rabbitmq:dev2
+  command:
+    - "--topology"
+    - "leader"
+    - "--listen-peer"
+    - "0.0.0.0"
+  ports:
+    - "15672:15672"
+    - "${AMQP_PORT}:${AMQP_PORT}"
+  expose:
+    - "9634/udp"
+  environment:
+    HAB_RABBITMQ: 'enable_management="${ENABLE_MANAGEMENT}" default_user="${USER_NAME}" default_pass="${USER_PASS}" erlang_cookie="${ERLANG_COOKIE}" port=${AMQP_PORT}'
+  labels:
+    io.rancher.container.hostname_override: container_name
+
+rabbitmq-slave:
+  image: janeczku/rabbitmq:dev
+  command:
+    - "--topology"
+    - "leader"
+    - "--peer"
+    - "rabbitmq-master"
+    - "--listen-peer"
+    - "0.0.0.0"
+  expose:
+    - "9634/udp"
+  environment:
+    HAB_RABBITMQ: 'enable_management="${ENABLE_MANAGEMENT}" default_user="${USER_NAME}" default_pass="${USER_PASS}" erlang_cookie="${ERLANG_COOKIE}" port=${AMQP_PORT}'
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+  links:
+    - rabbitmq-master
