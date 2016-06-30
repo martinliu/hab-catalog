@@ -1,0 +1,8 @@
+.catalog:
+  name: mytutorialapp
+  version: 0.1.0-20160630110851
+  description: "A Web demo"
+
+
+mytutorialapp:
+  scale: 1

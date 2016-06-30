@@ -1,0 +1,5 @@
+mytutorialapp:
+  restart: always
+  tty: true
+  image: martin/mytutorialapp
+  stdin_open: true

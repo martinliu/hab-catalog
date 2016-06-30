@@ -1,0 +1,5 @@
+name: mytutorialapp
+version: 0.1.0-20160630110851
+maintainer: Martin Liu <martin@aws-faq.com>
+category: Web
+description: "Martin mytutorialapp"
