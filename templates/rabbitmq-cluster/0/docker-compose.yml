@@ -1,5 +1,5 @@
 rabbitmq-master:
-  image: janeczku/rabbitmq:dev2
+  image: 192.168.99.20:5000/martin/rabbitmq:v2
   command:
     - "--topology"
     - "leader"
@@ -16,7 +16,7 @@ rabbitmq-master:
     io.rancher.container.hostname_override: container_name
 
 rabbitmq-slave:
-  image: janeczku/rabbitmq:dev
+  image: 192.168.99.20:5000/martin/rabbitmq:v2
   command:
     - "--topology"
     - "leader"
