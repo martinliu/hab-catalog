@@ -3,3 +3,5 @@ mytutorialapp:
   tty: true
   image: martin/mytutorialapp
   stdin_open: true
+  ports:
+  - 5000
